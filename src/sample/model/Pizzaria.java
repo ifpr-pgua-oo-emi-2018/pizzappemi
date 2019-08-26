@@ -15,6 +15,8 @@ public class Pizzaria {
 
     ClienteDAO clienteDAO = new ClienteDAOImpl();
 
+    PedidoDAO pedidoDAO = new PedidoDAOImpl();
+
     private ObservableList<Pizza> sabores;
     private ObservableList<Cliente> clientes;
 
@@ -59,10 +61,29 @@ public class Pizzaria {
 
     }
 
+
+    public void incluiClientePedido(Cliente c) throws Exception{
+
+        if(pedido != null){
+            pedido.setCliente(c);
+        }else{
+            throw new Exception("Pedido fechado!!!");
+        }
+    }
+
     public Double fecharPedido() throws Exception{
+
+
+
+
         Double valor=0.0;
         if(pedido != null){
             valor = pedido.getValorTotal();
+
+            //insere o pedido no banco de dados
+            pedidoDAO.insere(pedido);
+
+
             pedido = null;
             return valor;
         }else {

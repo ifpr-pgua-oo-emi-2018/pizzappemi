@@ -51,6 +51,7 @@ public class Principal {
             ltvClientes.setItems(Pizzaria.getInstance().listaClientes());
             btFecharPedido.setDisable(true);
             btIncluir.setDisable(true);
+            ltvClientes.setDisable(true);
         }catch (SQLException e){
             mensagem(Alert.AlertType.ERROR,e.getMessage());
         }
@@ -60,6 +61,7 @@ public class Principal {
         try{
             Pizzaria.getInstance().abrirPedido();
             ltvPedido.setItems(Pizzaria.getInstance().getListaPedido());
+            ltvClientes.setDisable(false);
             btFecharPedido.setDisable(false);
             btIncluir.setDisable(false);
         }catch (Exception e){
@@ -93,6 +95,7 @@ public class Principal {
 
                 btFecharPedido.setDisable(true);
                 btIncluir.setDisable(true);
+                ltvClientes.setDisable(true);
                 txtValor.setText("Valor Total R$:");
 
 
@@ -149,6 +152,24 @@ public class Principal {
 
     }
 
+
+    @FXML
+    public void incluiClientePedido(){
+        try{
+
+            Cliente c = ltvClientes.getSelectionModel().getSelectedItem();
+
+            if(c!=null){
+
+                Pizzaria.getInstance().incluiClientePedido(c);
+
+            }
+
+        }catch (Exception e){
+            mensagem(Alert.AlertType.ERROR,e.getMessage());
+        }
+
+    }
 
 
     public void cadastrarPizza(){

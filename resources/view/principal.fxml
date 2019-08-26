@@ -36,7 +36,7 @@
             <VBox>
                 <Label text="Clientes"/>
                 <TextField fx:id="tfBuscaClientes" promptText="Buscar" onKeyPressed="#buscaClientes"/>
-                <ListView fx:id="ltvClientes" />
+                <ListView fx:id="ltvClientes" onMouseClicked="#incluiClientePedido"/>
             </VBox>
 
             <VBox spacing="5">
