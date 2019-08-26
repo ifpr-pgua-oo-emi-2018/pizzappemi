@@ -13,6 +13,7 @@ public class Pizzaria {
 
     PizzaDAO pizzaDAO = new PizzaDAOImpl();
 
+    ClienteDAO clienteDAO = new ClienteDAOImpl();
 
     private ObservableList<Pizza> sabores;
     private ObservableList<Cliente> clientes;
@@ -36,27 +37,8 @@ public class Pizzaria {
 
     }
 
-    public void cadastraCliente(String nome, String telefone, int anoNascimento){
-        try{
-            Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
-
-            PreparedStatement stm = con.prepareStatement("INSERT INTO CLIENTES(NOME,TELEFONE,ANONASCIMENTO) VALUES (?,?,?)");
-
-            stm.setString(1,nome);
-            stm.setString(2,telefone);
-            stm.setInt(3,anoNascimento);
-
-            stm.executeUpdate();
-
-            stm.close();
-            con.close();
-
-
-            clientes.add(new Cliente(nome,telefone,anoNascimento));
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+    public void cadastraCliente(String nome, String telefone, int anoNascimento) throws SQLException{
+        clienteDAO.insere(nome, telefone, anoNascimento);
     }
 
     public void abrirPedido() throws Exception{
@@ -150,73 +132,20 @@ public class Pizzaria {
         return sabores;
     }
 
-    public ObservableList buscaCliente(String texto){
+    public ObservableList buscaCliente(String texto) throws SQLException{
         clientes.clear();
 
-        try{
-
-            Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
-
-
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM CLIENTES where NOME like ?");
-
-            stm.setString(1,"%"+texto+"%");
-
-            ResultSet res = stm.executeQuery();
-
-            while(res.next()){
-                int id = res.getInt("ID");
-                String nome = res.getString("NOME");
-                String telefone = res.getString("NOME");
-                int anoNascimento = res.getInt("ANONASCIMENTO");
-
-                Cliente c = new Cliente(id,nome,telefone,anoNascimento);
-
-                clientes.add(c);
-            }
-
-            res.close();
-            stm.close();
-            con.close();
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        clientes.addAll(clienteDAO.buscaNome(texto));
 
         return clientes;
     }
 
 
 
-    public ObservableList listaClientes(){
+    public ObservableList listaClientes() throws SQLException{
         clientes.clear();
 
-        try{
-
-            Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
-
-            Statement stm = con.createStatement();
-
-            ResultSet res = stm.executeQuery("SELECT * FROM CLIENTES");
-
-            while(res.next()){
-                int id = res.getInt("ID");
-                String nome = res.getString("NOME");
-                String telefone = res.getString("TELEFONE");
-                int anoNascimento =res.getInt("ANONASCIMENTO");
-
-                Cliente c = new Cliente(id,nome,telefone,anoNascimento);
-
-                clientes.add(c);
-            }
-
-            res.close();
-            stm.close();
-            con.close();
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        clientes.addAll(clienteDAO.lista());
 
         return clientes;
     }

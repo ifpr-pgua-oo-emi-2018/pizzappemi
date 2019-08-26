@@ -20,6 +20,8 @@ public class JanelaCadastro {
 
         String sabor = tfSabor.getText();
         Double valor = Double.valueOf(tfValor.getText());
+
+
         try{
             Pizzaria.getInstance().cadastraPizza(sabor,valor);
         }catch (SQLException e){
