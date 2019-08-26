@@ -83,6 +83,10 @@ public class Principal {
     public void fecharPedido(){
         try{
                 double valor = Pizzaria.getInstance().fecharPedido();
+
+                //INSERIR NO BANCO DE DADOS....
+
+
                 mensagem(Alert.AlertType.CONFIRMATION,"O valor do pedido é R$ "+valor);
 
                 ltvPedido.setItems(null);
