@@ -188,6 +188,16 @@ public class Principal {
         NavegadorCenas.loadJanela(NavegadorCenas.JANELA_VISUALIZA_PEDIDOS);
     }
 
+    public void listarPizzas(){
+        NavegadorCenas.loadJanela(NavegadorCenas.JANELA_VISUALIZA_PIZZAS);
+    }
+
+    public void listarClientes(){
+        NavegadorCenas.loadJanela(NavegadorCenas.JANELA_VISUALIZA_CLIENTES);
+    }
+
+
+
 
     private void mensagem(Alert.AlertType type, String msg){
         Alert alert = new Alert(type,msg);

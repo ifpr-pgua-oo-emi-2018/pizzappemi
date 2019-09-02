@@ -90,7 +90,7 @@ public class JanelaVisualizaPedidos {
             tbPedidoPizzas.setItems(pedido.listaPizzas());
         }
 
-        
+
     }
 
 

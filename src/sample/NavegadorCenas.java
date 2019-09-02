@@ -13,6 +13,10 @@ public class NavegadorCenas {
     public static final String JANELA_CADASTRO = "/view/janela_cadastro.fxml";
     public static final String JANELA_CADASTRO_CLIENTE = "/view/janela_cadastro_cliente.fxml";
     public static final String JANELA_VISUALIZA_PEDIDOS = "/view/visualiza_pedidos.fxml";
+    public static final String JANELA_VISUALIZA_PIZZAS = "/view/visualiza_pizzas.fxml";
+    public static final String JANELA_VISUALIZA_CLIENTES = "/view/visualiza_clientes.fxml";
+
+
 
     private static JanelaBase controlador;
 
