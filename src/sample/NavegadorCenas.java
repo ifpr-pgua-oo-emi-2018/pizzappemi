@@ -12,7 +12,7 @@ public class NavegadorCenas {
     public static final String PRINCIPAL    = "/view/principal.fxml";
     public static final String JANELA_CADASTRO = "/view/janela_cadastro.fxml";
     public static final String JANELA_CADASTRO_CLIENTE = "/view/janela_cadastro_cliente.fxml";
-
+    public static final String JANELA_VISUALIZA_PEDIDOS = "/view/visualiza_pedidos.fxml";
 
     private static JanelaBase controlador;
 

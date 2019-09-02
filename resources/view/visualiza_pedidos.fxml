@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.control.JanelaVisualizaPedidos"
+            prefHeight="400.0" prefWidth="600.0">
+
+
+    <center>
+
+        <VBox>
+
+            <TableView fx:id="tbPedidos" onMouseClicked="#carregarPizzas">
+
+                <columns>
+                    <TableColumn fx:id="tcPedidoId" text="Cód."/>
+                    <TableColumn fx:id="tcPedidoCliente" text="Cliente"/>
+                    <TableColumn fx:id="tcPedidoData" text="Data"/>
+                    <TableColumn fx:id="tcPedidoValor" text="Valor (R$)"/>
+                </columns>
+            </TableView>
+
+
+            <TableView fx:id="tbPedidoPizzas">
+
+                <columns>
+                    <TableColumn fx:id="tcPizzaSabor" text="Sabor"/>
+                    <TableColumn fx:id="tcPizzaValor" text="Valor (R$)"/>
+                </columns>
+
+
+            </TableView>
+
+
+            <Button text="Voltar" onAction="#voltar"/>
+
+        </VBox>
+
+
+    </center>
+
+
+
+</BorderPane>

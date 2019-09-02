@@ -19,6 +19,8 @@ public class Pizzaria {
 
     private ObservableList<Pizza> sabores;
     private ObservableList<Cliente> clientes;
+    private ObservableList<Pedido> pedidos;
+
 
     private Pedido pedido;
 
@@ -27,6 +29,7 @@ public class Pizzaria {
     private Pizzaria(){
         sabores = FXCollections.observableArrayList();
         clientes = FXCollections.observableArrayList();
+        pedidos = FXCollections.observableArrayList();
     }
 
     public static Pizzaria getInstance(){
@@ -172,6 +175,17 @@ public class Pizzaria {
     }
 
 
+
+
+    public ObservableList listaPedidos() throws SQLException{
+
+        pedidos.clear();
+
+        pedidos.addAll(pedidoDAO.lista());
+
+        return pedidos;
+
+    }
 
     public void salva() throws IOException {
 

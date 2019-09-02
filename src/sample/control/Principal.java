@@ -184,6 +184,11 @@ public class Principal {
 
     }
 
+    public void listarPedidos(){
+        NavegadorCenas.loadJanela(NavegadorCenas.JANELA_VISUALIZA_PEDIDOS);
+    }
+
+
     private void mensagem(Alert.AlertType type, String msg){
         Alert alert = new Alert(type,msg);
         alert.showAndWait();

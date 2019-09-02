@@ -84,7 +84,7 @@ public class PedidoDAOImpl implements PedidoDAO {
         while(rs.next()){
             int id = rs.getInt("id");
             int idCliente = rs.getInt("idCliente");
-            Date data = rs.getDate("data");
+            LocalDateTime data = rs.getTimestamp("data").toLocalDateTime();
             double valorTotal = rs.getDouble("valorTotal");
 
             Cliente c = clienteDAO.buscaId(idCliente);
@@ -94,7 +94,12 @@ public class PedidoDAOImpl implements PedidoDAO {
             pedido.setId(id);
             pedido.setCliente(c);
             pedido.setValorTotal(valorTotal);
-            pedido.setData(LocalDateTime.from(data.toLocalDate()));
+            //pedido.setData(LocalDateTime.parse(data.toString()));
+            pedido.setData(data);
+
+
+
+
 
             //buscando as pizzas do pedido
             stm2.setInt(1,pedido.getId());

@@ -22,7 +22,7 @@
                     <items>
                         <MenuItem text="Cadastrar Pizza" onAction="#cadastrarPizza"/>
                         <MenuItem text="Cadastrar Cliente" onAction="#cadastrarCliente"/>
-
+                        <MenuItem text="Lista Pedidos" onAction="#listarPedidos"/>
                     </items>
                 </Menu>
             </menus>
