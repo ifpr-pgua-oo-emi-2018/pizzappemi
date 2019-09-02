@@ -10,32 +10,36 @@ import java.util.List;
 public class PedidoDAOImpl implements PedidoDAO {
 
 
-    private static String INSERT = "INSERT INTO PEDIDOS(idCliente,valorTotal,data) VALUES(?,?,?)";
+    private static String INSERT = "INSERT INTO pedidos(idCliente,valorTotal,data) VALUES(?,?,?)";
     private static String ULTIMO_ID = "select seq from sqlite_sequence where name='pedidos'";
-    private static String INSERE_PEDIDO_PIZZA = "INSERT INTO PEDIDOPIZZA(idPedido,idPizza,valor) VALUES(?,?,?)";
+    private static String INSERE_PEDIDO_PIZZA = "INSERT INTO pedidopizza(idPedido,idPizza,valor) VALUES(?,?,?)";
 
-    private static String LISTA = "SELECT * FROM PEDIDOS";
-    private static String LISTA_PEDIDOPIZZA = "SELECT * FROM PEDIDOPIZZA WHERE idPedido=?";
+    private static String LISTA = "SELECT * FROM pedidos";
+    private static String LISTA_PEDIDOPIZZA = "SELECT * FROM pedidopizza WHERE idPedido=?";
 
     @Override
     public Pedido insere(Pedido p) throws SQLException {
 
         Connection con = FabricaConexao.getConnection();
 
-        PreparedStatement stm = con.prepareStatement(INSERT);
+
+        //necessário utiliza o parametro Statement.RETURN_GENERATED_KEYS para poder acessar o id
+        //do pedido que foi inserido
+        PreparedStatement stm = con.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
         stm.setInt(1,p.getCliente().getId());
         stm.setDouble(2,p.getValorTotal());
-        stm.setDate(3,new Date(System.currentTimeMillis()));
-        stm.executeUpdate();
-        stm.close();
+        stm.setTimestamp(3,new Timestamp(System.currentTimeMillis()));
+        int rows = stm.executeUpdate();
 
 
         //buscando o id do pedido que acabou de ser inserido
-        stm = con.prepareStatement(ULTIMO_ID);
+        if(rows == 0){
+            throw  new SQLException("Problema ao inserir Pedido!!");
+        }
 
-        ResultSet rs = stm.executeQuery();
+        ResultSet rs = stm.getGeneratedKeys();
         rs.next();
-        int id = rs.getInt("seq");
+        int id = rs.getInt(1);
         p.setId(id);
 
         rs.close();

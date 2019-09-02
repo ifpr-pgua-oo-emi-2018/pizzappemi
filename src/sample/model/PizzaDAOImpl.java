@@ -10,11 +10,11 @@ public class PizzaDAOImpl implements PizzaDAO{
     @Override
     public Pizza insere(String sabor, double valor) throws SQLException {
         Pizza p = new Pizza(sabor,valor);
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
 
         PreparedStatement stm = con
-                    .prepareStatement("INSERT INTO Pizzas(sabor,valor) VALUES (?,?)");
+                    .prepareStatement("INSERT INTO pizzas(sabor,valor) VALUES (?,?)");
 
         stm.setString(1,p.getSabor());
         stm.setDouble(2,p.getValor());
@@ -29,11 +29,11 @@ public class PizzaDAOImpl implements PizzaDAO{
 
     @Override
     public Pizza atualiza(Pizza p) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
 
         PreparedStatement stm = con
-                .prepareStatement("UPDATE Pizzas SET sabor=? ,valor=? WHERE id=?");
+                .prepareStatement("UPDATE pizzas SET sabor=? ,valor=? WHERE id=?");
 
         stm.setString(1,p.getSabor());
         stm.setDouble(2,p.getValor());
@@ -49,11 +49,11 @@ public class PizzaDAOImpl implements PizzaDAO{
 
     @Override
     public boolean remove(Pizza p) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
 
         PreparedStatement stm = con
-                .prepareStatement("DELETE FROM Pizzas WHERE id=?");
+                .prepareStatement("DELETE FROM pizzas WHERE id=?");
 
         stm.setInt(1,p.getId());
 
@@ -72,17 +72,17 @@ public class PizzaDAOImpl implements PizzaDAO{
 
         Pizza p=null;
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM PIZZAS where id=?");
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM pizzas where id=?");
 
         stm.setInt(1,id);
 
         ResultSet res = stm.executeQuery();
 
         while(res.next()){
-            String sabor = res.getString("SABOR");
-            Double valor = res.getDouble("VALOR");
+            String sabor = res.getString("sabor");
+            Double valor = res.getDouble("valor");
 
             p = new Pizza(id,sabor,valor);
         }
@@ -100,8 +100,8 @@ public class PizzaDAOImpl implements PizzaDAO{
     public List<Pizza> lista() throws SQLException {
         ArrayList<Pizza> sabores = new ArrayList<>();
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM Pizzas");
+        Connection con = FabricaConexao.getConnection();
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM pizzas");
 
         ResultSet rs = stm.executeQuery();
 

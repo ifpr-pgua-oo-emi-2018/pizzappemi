@@ -100,6 +100,7 @@ public class Principal {
 
 
         }catch (Exception e){
+            e.printStackTrace();
             mensagem(Alert.AlertType.ERROR,e.getMessage());
         }
     }

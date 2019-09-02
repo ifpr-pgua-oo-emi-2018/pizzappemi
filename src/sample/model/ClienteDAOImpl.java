@@ -10,10 +10,10 @@ public class ClienteDAOImpl implements ClienteDAO{
     @Override
     public Cliente insere(String nome, String telefone, int anoNascimento) throws SQLException {
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
         PreparedStatement stm = con
-                .prepareStatement("INSERT INTO CLIENTES(NOME,TELEFONE,ANONASCIMENTO) VALUES (?,?,?)");
+                .prepareStatement("INSERT INTO clientes(nome,telefone,anoNascimento) VALUES (?,?,?)");
 
         stm.setString(1,nome);
         stm.setString(2,telefone);
@@ -37,18 +37,18 @@ public class ClienteDAOImpl implements ClienteDAO{
 
         Cliente c = null;
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM CLIENTES where ID=?");
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM clientes where id=?");
 
         stm.setInt(1,id);
 
         ResultSet res = stm.executeQuery();
 
         while(res.next()){
-            String nome = res.getString("NOME");
-            String telefone = res.getString("NOME");
-            int anoNascimento = res.getInt("ANONASCIMENTO");
+            String nome = res.getString("nome");
+            String telefone = res.getString("telefone");
+            int anoNascimento = res.getInt("anoNascimento");
 
             c = new Cliente(id,nome,telefone,anoNascimento);
 
@@ -67,17 +67,17 @@ public class ClienteDAOImpl implements ClienteDAO{
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
         Statement stm = con.createStatement();
 
-        ResultSet res = stm.executeQuery("SELECT * FROM CLIENTES");
+        ResultSet res = stm.executeQuery("SELECT * FROM clientes");
 
         while(res.next()){
-            int id = res.getInt("ID");
-            String nome = res.getString("NOME");
-            String telefone = res.getString("TELEFONE");
-            int anoNascimento =res.getInt("ANONASCIMENTO");
+            int id = res.getInt("id");
+            String nome = res.getString("nome");
+            String telefone = res.getString("telefone");
+            int anoNascimento =res.getInt("anoNascimento");
 
             Cliente c = new Cliente(id,nome,telefone,anoNascimento);
 
@@ -96,20 +96,20 @@ public class ClienteDAOImpl implements ClienteDAO{
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
 
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM CLIENTES where NOME like ?");
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM clientes where nome like ?");
 
         stm.setString(1,"%"+texto+"%");
 
         ResultSet res = stm.executeQuery();
 
         while(res.next()){
-            int id = res.getInt("ID");
-            String nome = res.getString("NOME");
-            String telefone = res.getString("NOME");
-            int anoNascimento = res.getInt("ANONASCIMENTO");
+            int id = res.getInt("id");
+            String nome = res.getString("nome");
+            String telefone = res.getString("telefone");
+            int anoNascimento = res.getInt("anoNascimento");
 
             Cliente c = new Cliente(id,nome,telefone,anoNascimento);
 
@@ -125,10 +125,10 @@ public class ClienteDAOImpl implements ClienteDAO{
 
     @Override
     public Cliente atualiza(Cliente c) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
         PreparedStatement stm = con
-                .prepareStatement("UPDATE CLIENTES SET NOME=?, TELEFONE=?, ANONASCIMENTO=? WHERE ID=?");
+                .prepareStatement("UPDATE clientes SET nome=?, telefone=?, anoNascimento=? WHERE id=?");
 
         stm.setString(1,c.getNome());
         stm.setString(2,c.getTelefone());
@@ -147,10 +147,10 @@ public class ClienteDAOImpl implements ClienteDAO{
 
     @Override
     public boolean remove(Cliente c) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:sqlite:pizzappemi.sqlite");
+        Connection con = FabricaConexao.getConnection();
 
         PreparedStatement stm = con
-                .prepareStatement("DELETE FROM CLIENTES WHERE ID=?");
+                .prepareStatement("DELETE FROM clientes WHERE id=?");
 
 
         stm.setInt(1,c.getId());
